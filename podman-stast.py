@@ -40,6 +40,10 @@ def update_table(n):
     df['mem_percent'] = df['mem_percent'].apply(lambda x: x.strip("%"))
     df['mem_percent'] = pd.to_numeric(df['mem_percent'])
     df['mem_percent'] = df['mem_percent'].apply(lambda x: x/100)
+    
+    # apenas pra uso de memoria acima de 0
+    df = df[df['mem_percent'] > 0]
+    
     return df.to_dict("rows")
 
 @app.callback(Output('table', 'columns'),
